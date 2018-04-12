@@ -5,14 +5,6 @@ import PackageDescription
 
 let package = Package(
     name: "PerfectProject",
-//    products: [
-//        .library(
-//            name: "PerfectProject",
-//            targets: ["PerfectProject"]),
-//    ],
-    products: [
-        .executable(name: "PerfectProject", targets: ["PerfectProject"]),
-    ],
     dependencies: [
         .package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", from: "3.0.0")
     ],
@@ -20,16 +12,5 @@ let package = Package(
         .target(
             name: "PerfectProject",
             dependencies: ["PerfectHTTPServer"]),
-        .testTarget(
-            name: "PerfectProjectTests",
-            dependencies: ["PerfectProject"]),
     ]
 )
-
-//let package = Package(
-//    name: "PerfectProject",
-//    targets: [],
-//    dependencies: [
-//        .Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", majorVersion: 3),
-//    ]
-//)

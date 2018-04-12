@@ -21,32 +21,20 @@ mkdir PerfectProject
 cd PerfectProject
 ```
 
-2、使用swift的[Swift Package Manager](https://www.perfect.org/docs/buildingWithSPM_zh_CN.html)创建和管理我们的工程。（[SPM官方文档](https://swift.org/package-manager/)）
-
+2、使用swift的[Swift Package Manager](https://www.perfect.org/docs/buildingWithSPM_zh_CN.html)（[SPM官方文档](https://swift.org/package-manager/)）创建和管理我们的工程。
+创建一个 可执行的包.
 ```
-$ swift package init  
+$ swift package init --type executable 
 //执行后会生成下列文件
-Creating library package: PerfectProject
+Creating executable package: PerfectProject
 Creating Package.swift
 Creating README.md
-Creating .gitignore
 Creating Sources/
-Creating Sources/PerfectProject/PerfectProject.swift
+Creating Sources/PerfectProject/main.swift
 Creating Tests/
-Creating Tests/LinuxMain.swift
-Creating Tests/PerfectProjectTests/
-Creating Tests/PerfectProjectTests/PerfectProjectTests.swift
-Creating Tests/PerfectProjectTests/XCTestManifests.swift
-$ 
 ```
 
 3、打开 Package.swift ，在 dependencies 列表中添加依赖
-> 我当前的版本 swift-tools-version:4.0		
-
-###### 要修改的地方：		
-* products[] 改成 生成可执行文件		
-* dependencies[] 中添加依赖		
-* targets[] 中的 .target 中添加 要依赖的名称。
 
 ```
 // swift-tools-version:4.0
@@ -56,9 +44,6 @@ import PackageDescription
 
 let package = Package(
     name: "PerfectProject",
-    products: [
-        .executable(name: "PerfectProject", targets: ["PerfectProject"]),
-    ],
     dependencies: [
         .package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", from: "3.0.0")
     ],
@@ -66,35 +51,23 @@ let package = Package(
         .target(
             name: "PerfectProject",
             dependencies: ["PerfectHTTPServer"]),
-        .testTarget(
-            name: "PerfectProjectTests",
-            dependencies: ["PerfectProject"]),
     ]
 )
 ```
 
-4、在 Sources/PerfectProject 下新建 main.swift
-
-```
-echo 'print("Hello Perfect!")' >> Sources/PerfectProject/main.swift
-```
-
-5、编译运行		
+4、编译运行		
 首次 build 会从 github 下载相关依赖，过程会比较久。
-> 有新增依赖项，修改了 package.swift 后，要重新 build，这将会将新的依赖链接编译进工程。
+> 有新增依赖项，修改了 package.swift 后，需要重新 build，这会把新的依赖编译链接进工程。
 
 ```
 swift build
+```
+这会编译包并在 .build/debug/ 创建一个可执行文件 PerfectProject。运行它
+
+```
 $ .build/debug/PerfectProject
 ```
-
-终端打印出 `Hello Perfect!` 就说明成功了
-
-
-> 注意：如果没创建 main.swift, build 会提示下面错误
-```
-error: terminated(1): /Library/Developer/CommandLineTools/usr/bin/swift-build-tool -f /Users/xiaomk/Projects/PerfectProject/.build/debug.yaml main output:
-```
+终端打印出 `Hello, world!` 就说明成功了
 
 
 6、创建xcodeproj,这样就可以用Xcode来编译调试了

@@ -78,6 +78,30 @@ $ swift package generate-xcodeproj
 generated: ./PerfectProject.xcodeproj
 ```
 
+## to be continue......
+
+
+
+
+
+
+
+
+
+
+---
+## 附 SPM 常用命令
+创建新包 `swift package init `
+
+创建可执行包 `swift package init --type executable `
+
+创建库 `swift package init --type library `
+
+更新一个包的依赖 `swift package update`
+
+生产Xcode 项目 `swift package generate-xcodeproj`
+
+下载依赖编译链接 `swift build`
 
 
 
